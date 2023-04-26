@@ -20,21 +20,21 @@
 
 <body>
     <div class="center container mt-5">
-        <h2 class="text-center">Permalink Generator</h2>
+        <div class="col-sm-10 col-lg-8 offset-lg-2">
+            <h2 class="text-center text-primary">Permalink Generator</h2>
+        </div>
         <br/>
         <div class="form-group">
-            <div class="col-sm-10 col-lg-8">
-                <input type="text" class="form-control border-dark rounded-0" id="title" placeholder="Enter Your Title">
+            <div class="col-sm-10 col-lg-8 offset-lg-2">
+                <label for="title" class="text-secondary">Title</label>
+                <input type="text" class="form-control border-dark rounded-0" oninput="generatePermalink()" id="title" placeholder="Enter your title">
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button class="btn btn-outline-info rounded-0" onclick="generatePermalink()">Generate</button>
-            </div>
-        </div>
-        <div class="col-sm-10 col-lg-8">
+        <br/>
+        <div class="col-sm-10 col-lg-8 offset-lg-2">
+            <label for="permalink" class="text-secondary">Permalink</label>
             <div class="input-group">
-                <input type="text" id="permalink" class="form-control rounded-0 border-dark" readonly>
+                <input type="text" id="permalink" class="form-control rounded-0 border-dark" onclick="copyToClipboard()" readonly>
                 <span id="copyButton" class="input-group-addon btn btn-dark rounded-0 border-dark"
                     onclick="copyToClipboard()" title="Click to copy">
                     <i class="fa fa-clipboard" aria-hidden="true"></i>
@@ -50,7 +50,7 @@
         function generatePermalink() {
             var title = document.getElementById("title").value;
             title = title.toLowerCase();
-            document.getElementById("permalink").value = title.replaceAll(" ", "-");
+            document.getElementById("permalink").value = title.replaceAll(/\s\s+/g, "-").replaceAll(" ","-").replaceAll(/-+/g,"-").replace(/-$/, '');
         }
         function copyToClipboard() {
             var permalink = document.getElementById("permalink");
